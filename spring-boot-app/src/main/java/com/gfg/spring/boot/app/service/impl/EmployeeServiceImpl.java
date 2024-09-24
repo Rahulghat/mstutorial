@@ -8,6 +8,7 @@ import com.gfg.spring.boot.app.response.AddressResponse;
 import com.gfg.spring.boot.app.response.EmployeeResponse;
 import com.gfg.spring.boot.app.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +18,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.reactive.function.client.WebClient;
+
+/** This class using FeingClient
+ * *
+ */
+
 
 @Service
+@Primary
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
 
     private final EmployeeMapper employeeMapper;
+
+
 
     @Autowired
     private AddressClient addressClient;
@@ -67,4 +77,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee save = employeeRepo.save(employee);
         return save.getId() > 0;
     }
+
+
 }
